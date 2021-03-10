@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal : ICarDal
     {
         List<Car> _cars;
         public InMemoryCarDal()
@@ -51,6 +51,15 @@ namespace DataAccess.Concrete.InMemory
         public List<Car> GetAllById(int Id)
         {
             return _cars.Where(p => p.Id == Id).ToList();
+        }
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            return _cars.Where(b => b.BrandId == brandId).ToList();
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _cars.Where(c => c.ColorId == colorId).ToList();
         }
 
         public List<CarDetailDto> GetCarDetails()

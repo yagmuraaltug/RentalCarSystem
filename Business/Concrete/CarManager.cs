@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DataAccess.Abstract;
+using DataAccess.Concrete.InMemory;
 using Entities.DTOs;
+using Core.Utilities.Results;
+using Business.Constants;
 
 namespace Business.Concrete
 {
@@ -17,34 +20,46 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
-        {
-            if (car.CarName.Length >= 2 && car.DailyPrice > 0) {
-                _carDal.Add(car);
-                Console.WriteLine("The Car Succesfully Added!");
-            }
 
-        }
-
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
             //business codes
-            return _carDal.GetAll();
+            if (DateTime.Now.Hour == 18)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Car>>(Messages.CarListed);
         }
 
-        public List<Car> GetAllByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(p => p.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == brandId));
         }
 
-        public List<Car> GetAllByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(p => p.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(co => co.ColorId == id));
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IResult Add(Car car)
+        {
+            if (car.CarName.Length<2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+
+                _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
         }
     }
 }
