@@ -35,5 +35,17 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<Customer>>(Messages.CustomerListed);
         }
+
+        public IResult Delete(Customer customer)
+        {
+            _customerDal.Delete(customer);
+            return new SuccessResult(Messages.Deleted);
+        }
+
+        public IResult Update(Customer customer)
+        {
+            _customerDal.Update(customer);
+            return new SuccessResult(Messages.Updated);
+        }
     }
 }

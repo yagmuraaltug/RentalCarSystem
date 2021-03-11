@@ -24,7 +24,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             //business codes
-            if (DateTime.Now.Hour == 18)
+            if (DateTime.Now.Hour == 15)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId));
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == carId));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -60,6 +60,18 @@ namespace Business.Concrete
 
                 _carDal.Add(car);
                 return new SuccessResult(Messages.CarAdded);
+        }
+
+        public IResult Delete(Car car)
+        {
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.Deleted);
+        }
+
+        public IResult Update(Car car)
+        {
+            _carDal.Update(car);
+            return new SuccessResult(Messages.Updated);
         }
     }
 }

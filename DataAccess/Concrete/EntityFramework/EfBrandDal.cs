@@ -10,7 +10,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    class EfBrandDal : EfEntityRepositoryBase<Brand, ReCapContext>, IBrandDal 
+    public class EfBrandDal : EfEntityRepositoryBase<Brand, ReCapContext>, IBrandDal 
     {
        
     }
