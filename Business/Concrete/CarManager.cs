@@ -8,6 +8,8 @@ using DataAccess.Concrete.InMemory;
 using Entities.DTOs;
 using Core.Utilities.Results;
 using Business.Constants;
+using Core.Aspects.Autofac;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -24,10 +26,7 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             //business codes
-            if (DateTime.Now.Hour == 15)
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
+           
             return new SuccessDataResult<List<Car>>(Messages.CarListed);
         }
 
@@ -50,13 +49,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.CarName.Length<2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
 
                 _carDal.Add(car);
                 return new SuccessResult(Messages.CarAdded);
