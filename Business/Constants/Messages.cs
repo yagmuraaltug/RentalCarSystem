@@ -35,8 +35,16 @@ namespace Business.Constants
 
         public static string CustomerListed = "All customers listed!";
 
-        public static string Updated = "Succesfully updated!";
-        public static string Deleted = "Succesfully deleted!";
+        public static string Updated = "Successfully updated!";
+        public static string Deleted = "Successfully deleted!";
+
+        public static string CarImageDeleted = "The image successfully deleted!";
+
+        public static string CarImageAdded = "The image successfully added!";
+
+        public static string CarImageUpdated = "The image successfully updated!";
+
+        public static string CarImageLimitExceeded = "Sorry there is image limit!";
 
     }
 }
