@@ -12,27 +12,11 @@ namespace ConsoleUI
         {
             //CarDetails();
             //RentalAdded();
-            // UserGetAll();
+           
          
             
         }
 
-        private static void UserGetAll()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            var result = userManager.GetAll();
-            if (result.Success)
-            {
-                foreach (var user in result.Data)
-                {
-                    Console.WriteLine(user.UserName + " " + user.UserLastName);
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Messages);
-            }
-        }
 
         private static void CarDetails()
         {

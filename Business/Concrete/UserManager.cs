@@ -1,8 +1,5 @@
 ﻿using Business.Abstract;
-using Business.Constants;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac;
-using Core.Utilities.Results;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,39 +11,27 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
+
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
         }
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Add(User user)
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
+        public void Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult(Messages.CustomerAdded);
         }
 
-        public IResult Delete(User user)
+
+
+        public User GetByMail(string email)
         {
-            _userDal.Delete(user);
-            return new SuccessResult(Messages.Deleted);
+            return _userDal.Get(p => p.UserEmail == email);
         }
-
-        public IResult Update(User user)
-        {
-            _userDal.Update(user);
-            return new SuccessResult(Messages.Updated);
-        }
-
-        public IDataResult<List<User>> GetAll()
-        {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
-        }
-
-        public IDataResult<User> GetById(int userId)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(p => p.UserId == userId));
-        }
-
-      
     }
 }
