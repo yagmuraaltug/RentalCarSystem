@@ -22,7 +22,9 @@ namespace DataAccess.Concrete.EntityFramework
                              join co in context.Colors on c.ColorId equals co.ColorId
                              select new CarDetailDto()
                              {
+                                 
                                  CarName = c.CarName,
+                                 CarId = c.CarId,
                                  BrandName = b.BrandName,
                                  ColorName = co.ColorName,
                                  DailyPrice = c.DailyPrice

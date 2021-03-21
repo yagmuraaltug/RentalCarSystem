@@ -5,6 +5,7 @@ using Core.Aspects.Autofac;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -44,9 +45,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(Messages.CustomerListed);
         }
 
-        public IDataResult<Rental> GetByReturnDate(DateTime returndate)
+        public IDataResult<Rental> GetByReturnDate(string returndate)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(p => p.ReturnDate == returndate));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.ReturnDate == returndate));
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
         public IResult Update(Rental rental)

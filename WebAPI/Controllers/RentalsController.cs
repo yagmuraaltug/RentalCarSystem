@@ -30,8 +30,20 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getRentalDetails")]
+        public IActionResult GetRentalDetails()
+        {
+            var result = _rentalService.GetRentalDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+
+            }
+            return BadRequest(result);
+        }
         [HttpGet("GetByReturnDate")]
-        public IActionResult GetByReturnDate(DateTime returnDate)
+        public IActionResult GetByReturnDate(string returnDate)
         {
             var result = _rentalService.GetByReturnDate(returnDate);
             if (result.Success)
