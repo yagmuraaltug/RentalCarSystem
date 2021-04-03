@@ -15,10 +15,10 @@ namespace DataAccess.Concrete.InMemory
         public InMemoryCarDal()
         {
             _cars = new List<Car> {
-            new Car{ CarId=1,  DailyPrice=150000, ModelYear=2000, Description="Family Car" },
-            new Car{ CarId=2,  DailyPrice=100000, ModelYear=2001, Description="Family Car" },
-            new Car{ CarId=3,  DailyPrice=120000, ModelYear=2002, Description="Commercial Car" },
-            new Car{ CarId=4,  DailyPrice=100000, ModelYear=2000, Description="Commercial Car" }
+            new Car{ Id=1,  DailyPrice=150000, ModelYear=2000, Description="Family Car" },
+            new Car{ Id=2,  DailyPrice=100000, ModelYear=2001, Description="Family Car" },
+            new Car{ Id=3,  DailyPrice=120000, ModelYear=2002, Description="Commercial Car" },
+            new Car{ Id=4,  DailyPrice=100000, ModelYear=2000, Description="Commercial Car" }
 
 
             };
@@ -30,7 +30,7 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Car car)
         {
-            Car carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
+            Car carToDelete = _cars.SingleOrDefault(p => p.Id == car.Id);
         }
 
         public Car Get(Expression<Func<Car, bool>> filter)
@@ -50,7 +50,7 @@ namespace DataAccess.Concrete.InMemory
 
         public List<Car> GetAllById(int Id)
         {
-            return _cars.Where(p => p.CarId == Id).ToList();
+            return _cars.Where(p => p.Id == Id).ToList();
         }
         public List<Car> GetCarsByBrandId(int brandId)
         {
@@ -69,11 +69,16 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Car car)
         {
-            Car carToUpdate = _cars.SingleOrDefault(p => p.CarId == car.CarId);
+            Car carToUpdate = _cars.SingleOrDefault(p => p.Id == car.Id);
             carToUpdate.ModelYear = car.ModelYear;
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
 
+        }
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Core.Utilities.Helpers
     {
         public static string Add(IFormFile formFile)
         {
+            string path = Environment.CurrentDirectory + @"\wwwroot";
             var sourcepath = Path.GetTempFileName(); //Gecici dosya adi alindi.
             if(formFile.Length > 0)
             {
@@ -24,17 +25,19 @@ namespace Core.Utilities.Helpers
 
             }
             var result = newPath(formFile);
-            File.Move(sourcepath, result); // Belirtilen bir kaynaktan hedef olan newPath a tasindi.
-            return result;
+            File.Move(sourcepath, path + result); // Belirtilen bir kaynaktan hedef olan newPath a tasindi.
+            return result.Replace("\\" ,"/");
 
 
         }
 
         public static IResult Delete(string path)
         {
+            string path2 = Environment.CurrentDirectory + @"\wwwroot";
+            path = path.Replace("/", "\\");
             try
             {
-                File.Delete(path);
+                File.Delete(path2 + path);
             }
             catch (Exception exception) //istisnai durum bulundugunda
             {
@@ -45,6 +48,7 @@ namespace Core.Utilities.Helpers
 
         public static string Update(string sourcePath, IFormFile formFile)
         {
+            string path = Environment.CurrentDirectory + @"\wwwroot";
             var result = newPath(formFile).ToString();
             if(sourcePath.Length > 0)
             {
@@ -53,8 +57,8 @@ namespace Core.Utilities.Helpers
                     formFile.CopyTo(stream);
                 }
             }
-            File.Delete(sourcePath);
-            return result;
+            File.Delete(path + sourcePath);
+            return result.Replace("\\", "/");
         }
 
         public static string newPath(IFormFile formFile)
@@ -62,11 +66,9 @@ namespace Core.Utilities.Helpers
             FileInfo fileInfo = new FileInfo(formFile.FileName);
             string fileExtension = fileInfo.Extension; //dosya uzantisi
 
-            string path = Environment.CurrentDirectory + @"\Models\CarImages"; //aktif klasorun yolu
             var newPath = Guid.NewGuid().ToString() + fileExtension;
 
-            string result = $@"{path}\{newPath}";
-            return result;
+            return @"\Images\" + newPath;
         }
     }
 }

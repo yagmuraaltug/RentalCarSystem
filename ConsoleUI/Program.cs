@@ -26,7 +26,7 @@ namespace ConsoleUI
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.CarName + "/" + car.BrandName);
+                    Console.WriteLine(car.Id + "/" + car.BrandName);
                 }
 
             }
@@ -37,15 +37,15 @@ namespace ConsoleUI
         }
 
 
-        private static void RentalAdded()
-        {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result = rentalManager.Add(new Rental { CarId = 3, CustomerId = 5, RentDate = DateTime.Now, ReturnDate = new DateTime(2021, 04, 03) });
-            if (result.Success == true)
-            {
-                Console.WriteLine(result.Messages);
-                return;
-            }
-        }
+        //private static void RentalAdded()
+        //{
+        //    RentalManager rentalManager = new RentalManager(new EfRentalDal());
+        //    var result = rentalManager.Add(new Rental { CarId = 3, CustomerId = 5, RentDate = DateTime.Now, ReturnDate = new DateTime(2021, 04, 03) });
+        //    if (result.Success == true)
+        //    {
+        //        Console.WriteLine(result.Messages);
+        //        return;
+        //    }
+        //}
     }
 }

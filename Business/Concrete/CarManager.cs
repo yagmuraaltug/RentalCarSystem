@@ -14,6 +14,7 @@ using Business.BusinessAspects.Autofac;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Performance;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -31,7 +32,7 @@ namespace Business.Concrete
         {
             //business codes
            
-            return new SuccessDataResult<List<Car>>(Messages.CarListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
@@ -47,7 +48,7 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<Car> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == carId));
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -89,6 +90,13 @@ namespace Business.Concrete
             }
             Add(car);
             return null;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByCarId(int carId)
+        {
+
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p=> p.Id == carId));
+
         }
     }
 }
