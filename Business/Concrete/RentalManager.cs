@@ -20,7 +20,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-        [ValidationAspect(typeof(RentalValidator))]
+       // [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             
@@ -29,6 +29,7 @@ namespace Business.Concrete
 
         }
 
+    
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -45,7 +46,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(Messages.CustomerListed);
         }
 
-        public IDataResult<Rental> GetByReturnDate(string returndate)
+        public IDataResult<Rental> GetByReturnDate(DateTime returndate)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.ReturnDate == returndate));
         }
@@ -53,6 +54,17 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
+        }
+
+        public bool AvailableCars(int carId)
+        {
+            var result = _rentalDal.GetAll(c => c.CarId == carId && c.ReturnDate == null);
+
+            if (result.Count > 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public IResult Update(Rental rental)

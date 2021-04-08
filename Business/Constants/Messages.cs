@@ -47,5 +47,11 @@ namespace Business.Constants
         public static string CarImageLimitExceeded = "Sorry there is image limit!";
 
         public static string AuthorizationDenied = "Sorry , authorization is denied!";
+
+        public static string CarListedByFilter = "The Cars Listed!";
+
+        public static string CardAdded = "The card added";
+
+        public static string PaymentAdded = "Payment successfully completed!";
     }
 }

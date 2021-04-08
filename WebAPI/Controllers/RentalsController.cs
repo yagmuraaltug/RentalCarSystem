@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("GetByReturnDate")]
-        public IActionResult GetByReturnDate(string returnDate)
+        public IActionResult GetByReturnDate(DateTime returnDate)
         {
             var result = _rentalService.GetByReturnDate(returnDate);
             if (result.Success)
@@ -84,6 +84,19 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("iscaravailable")]
+        public IActionResult IsCarAvailable(int carId)
+        {
+            var result = _rentalService.AvailableCars(carId);
+
+            if (result)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
 
     }
 }

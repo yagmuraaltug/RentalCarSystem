@@ -27,6 +27,8 @@ namespace DataAccess.Concrete.EntityFramework
                        Id = car.Id,
                        BrandName = brand.BrandName,
                        ColorName = color.ColorName,
+                       BrandId = brand.BrandId,
+                       ColorId = color.ColorId,
                        DailyPrice = car.DailyPrice,
                        Description = car.Description,
                        ModelYear = car.ModelYear,
@@ -38,6 +40,34 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        
+        public List<CarDetailDto> GetCarFilter(int brandId, int colorId)
+        {
+            using (ReCapContext context = new ReCapContext())
+            {
+                var result =
+                   from car in context.Cars
+                   join brand in context.Brands on car.BrandId equals brand.BrandId
+                   join color in context.Colors on car.ColorId equals color.ColorId
+                   join image in context.CarImages on car.Id equals image.CarId
+                   where car.ColorId == colorId && brand.BrandId == brandId
+                   select new CarDetailDto
+                   {
+                       Id = car.Id,
+                       BrandName = brand.BrandName,
+                       BrandId = brand.BrandId,
+                       ColorId = color.ColorId,
+                       ColorName = color.ColorName,
+                       DailyPrice = car.DailyPrice,
+                       Description = car.Description,
+                       ModelYear = car.ModelYear,
+                       CarImageId = image.Id,
+                       ImagePath = image.ImagePath,
+                       Date = image.Date
+                   };
+                return result.ToList();
+            }
+        }
+
+
     }
 }
