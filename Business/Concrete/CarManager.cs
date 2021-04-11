@@ -103,5 +103,11 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId & c.BrandId == brandId), Messages.CarListedByFilter);
         }
+
+        public int GetCarFindexNote(int carId)
+        {
+            var result = _carDal.Get(p => p.Id == carId).FindexNote;
+            return result;
+        }
     }
 }

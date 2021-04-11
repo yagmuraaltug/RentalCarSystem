@@ -32,9 +32,11 @@ namespace DataAccess.Concrete.EntityFramework
                        DailyPrice = car.DailyPrice,
                        Description = car.Description,
                        ModelYear = car.ModelYear,
+                       FindexNote = (int)car.FindexNote,
                        CarImageId = image.Id,
                        ImagePath = image.ImagePath,
                        Date = image.Date
+
                    };
                 return result.ToList();
             }
@@ -62,6 +64,7 @@ namespace DataAccess.Concrete.EntityFramework
                        ModelYear = car.ModelYear,
                        CarImageId = image.Id,
                        ImagePath = image.ImagePath,
+                       FindexNote = car.FindexNote,
                        Date = image.Date
                    };
                 return result.ToList();

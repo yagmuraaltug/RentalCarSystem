@@ -53,5 +53,8 @@ namespace Business.Constants
         public static string CardAdded = "The card added";
 
         public static string PaymentAdded = "Payment successfully completed!";
+        public static string FindexNoteMax = "Your findex note maximum!";
+        public static string FindexNoteAdded = "Findex note added";
+
     }
 }

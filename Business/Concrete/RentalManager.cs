@@ -15,12 +15,19 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        IFindexService _findexService;
+        ICarService _carService;
+        ICustomerService _customerService;
 
-        public RentalManager(IRentalDal rentalDal)
+
+        public RentalManager(IRentalDal rentalDal, IFindexService findexService, ICarService carService, ICustomerService customerService)
         {
             _rentalDal = rentalDal;
+            _findexService = findexService;
+            _carService = carService;
+            _customerService = customerService;
         }
-       // [ValidationAspect(typeof(RentalValidator))]
+        // [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             
@@ -72,5 +79,7 @@ namespace Business.Concrete
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.Updated);
         }
+
+
     }
 }

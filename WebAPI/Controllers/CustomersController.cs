@@ -76,5 +76,25 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getCustomerById")]
+        public IActionResult GetCustomerById(int customerId)
+        {
+            var result = _customerService.GetCustomerById(customerId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getFindexnote")]
+        public IActionResult GetFindexNote(int customerId)
+        {
+            var result = _customerService.GetCustomerFindexNote(customerId);
+            if (result != null)
+                return Ok(result);
+            return BadRequest(result);
+        }
     }
 }

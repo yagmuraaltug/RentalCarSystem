@@ -122,6 +122,14 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getFindexNote")]
+        public IActionResult getFindexNote(int carId)
+        {
+            var result = _carService.GetCarFindexNote(carId);
+            if (result != null)
+                return Ok(result);
+            return BadRequest(result);
+        }
 
     }
 }

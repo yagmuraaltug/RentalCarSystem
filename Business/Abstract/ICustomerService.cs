@@ -13,6 +13,10 @@ namespace Business.Abstract
         IResult Update(Customer customer);
         IDataResult<List<Customer>> GetAll();
         IDataResult<Customer> GetById(int id);
+        IDataResult<List<Customer>> GetCustomerById(int customerId);
+        int GetCustomerFindexNote(int customerId);
+
+
 
     }
 }

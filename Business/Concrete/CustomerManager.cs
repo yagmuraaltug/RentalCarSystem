@@ -47,5 +47,16 @@ namespace Business.Concrete
             _customerDal.Update(customer);
             return new SuccessResult(Messages.Updated);
         }
+
+        public IDataResult<List<Customer>> GetCustomerById(int customerId)
+        {
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(p => p.CustomerId == customerId));
+        }
+
+        public int GetCustomerFindexNote(int customerId)
+        {
+            var result = _customerDal.Get(p => p.CustomerId == customerId).FindexNote;
+            return result;
+        }
     }
 }
